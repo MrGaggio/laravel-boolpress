@@ -62,7 +62,7 @@
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
             <div class="top-right links">
-                {{-- qui cambiamo il nome della rotta --}}
+                {{-- si cambia da wiew a route con il percorso corretto --}}
                 @auth
                     <a href="{{ route('admin.home') }}">Home</a>
                 @else
