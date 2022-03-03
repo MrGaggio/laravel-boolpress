@@ -37,7 +37,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //facciamo un dd per controllare se funziona tutto
+        // dd($request->all());
+            
+        $validateData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required'
+        ]);
     }
 
     /**
