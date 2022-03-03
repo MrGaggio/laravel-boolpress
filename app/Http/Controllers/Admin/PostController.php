@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use illuminate\Support\Str;
 use App\Model\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -44,6 +45,13 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required'
         ]);
+
+        $data = $request->all();
+        $slug = Str::slug($data['title'], '-');
+
+        $postSlug = Post::where('slug', $slug)->first();
+        // dd($postSlug);
+
     }
 
     /**
