@@ -47,10 +47,27 @@ class PostController extends Controller
         ]);
 
         $data = $request->all();
-        $slug = Str::slug($data['title'], '-');
 
-        $postSlug = Post::where('slug', $slug)->first();
+        $slug = Str::slug($data['title'], '-');
+        $postPresente = Post::where('slug', $slug)->first();
         // dd($postSlug);
+
+
+        $counter = 0;
+        while ($postPresente) {
+            $slug = $slug . '-' . $counter;
+            // dd($slug);
+            $postPresente = Post::where('slug', $slug)->first();
+            $counter++;
+        }
+
+        $newPost = new Post();
+    
+        $newPost->fill($data);
+        $newPost->slug = $slug;
+        $newPost->save();
+
+        return redirect()->route('admin.posts.show', ['post' => $newPost]);
 
     }
 
@@ -60,9 +77,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        dd($post);
     }
 
     /**
